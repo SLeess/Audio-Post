@@ -4,15 +4,19 @@
 
 O foco arquitetural do projeto é a **alta escalabilidade e resiliência**, utilizando processamento assíncrono em segundo plano para lidar com a geração pesada de áudios sem comprometer a experiência e a fluidez do usuário no front-end.
 
-### 🚀 Principais Funcionalidades
+---
 
-* **Text-to-Speech (TTS) com IA:** Conversão de textos em áudios humanizados integrando a API do ElevenLabs.
+## 🚀 Principais Funcionalidades
+
+* **Text-to-Speech (TTS) com IA:** Conversão de textos em áudios humanizados integrando a API da ElevenLabs.
 * **Resumos Inteligentes:** Análise de textos longos para geração automática de *bullet points* integrando LLMs via OpenRouter.
 * **Processamento Assíncrono:** Gerenciamento de filas de geração de áudio garantindo que o servidor web não fique bloqueado durante as requisições às APIs externas.
 * **Rate Limiting & Performance:** Controle de limite de uso por usuário e otimização de consultas utilizando cache em memória.
 * **Validação Front-to-Back:** Garantia de integridade dos dados com validações rigorosas desde a interface até o banco de dados.
 
-### 🛠️ Stack Tecnológica
+---
+
+## 🛠️ Stack Tecnológica
 
 * **Front-end:** Next.js (React), TypeScript, Tailwind CSS, React Hook Form + Zod, Sonner.
 * **Back-end:** PHP, Laravel (API RESTful).
@@ -43,19 +47,20 @@ cp .env.example .env
 ```
 
 3. Suba os containers do Laravel (App, MySQL, etc) em segundo plano:
-```Bash
+```bash
 ./vendor/bin/sail up -d
 ```
 
 4. Gere a chave da aplicação e rode as migrations para criar as tabelas no banco:
-```Bash
+```bash
 ./vendor/bin/sail artisan key:generate
 ./vendor/bin/sail artisan migrate
 ```
 
-A API estará rodando em http://localhost:8000.
+A API estará rodando em `http://localhost:8000`.
 
--- 
+---
+
 ### 2. Configurando o Front-end (Next.js)
 
 O front-end possui seu próprio ecossistema Docker.
@@ -75,7 +80,9 @@ cp .env.example .env
 dc up -d
 ```
 
-O Front-end estará acessível em http://localhost:3000.
+O Front-end estará acessível em `http://localhost:3000`.
+
+---
 
 ## 📦 Como instalar pacotes no Front-end (Docker)
 
@@ -103,7 +110,7 @@ Neste exemplo, o nome do nosso container é `11ce7904be97_audiopost-next_next-ap
 
 ### Passo 2: Executar a instalação
 
-Use o comando `docker exec` para rodar o `npm install` dentro desse container. A sintaxe é:
+Use o comando `docker exec` para abrir um terminal interativo e rodar o `npm install` dentro desse container. A sintaxe é:
 `docker exec -it <NOME_DO_CONTAINER> npm install <NOME_DO_PACOTE>`
 
 **Exemplo instalando bibliotecas de formulário e validação:**
