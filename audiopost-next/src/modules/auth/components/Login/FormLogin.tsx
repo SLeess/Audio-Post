@@ -1,5 +1,4 @@
-import { ChangeEvent, SubmitEvent } from "react";
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, useWatch } from "react-hook-form";
 import { LoginData } from "@/modules/auth/validations/loginSchema";
 
 interface FormLoginProps{
@@ -9,7 +8,13 @@ interface FormLoginProps{
 
 export default function FormLogin({ form, onSubmit }: FormLoginProps): React.ReactNode
 {
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = form;
+    const { register, handleSubmit, formState: { errors, isSubmitting }, control } = form;
+
+    const emailVal = useWatch({
+        control,
+        name: 'email',
+        defaultValue: ''
+    });
 
     return (
         <section className="col-span-6 px-20 flex flex-col items-start justify-center min-h-screen bg-white">
@@ -25,12 +30,17 @@ export default function FormLogin({ form, onSubmit }: FormLoginProps): React.Rea
                         {/** Isso substitui o value o onChange */}
                         {/* value={formData?.email}
                             onChange={handleInputChange} **/}
-                        <input type="email" id="email" placeholder="seu@email.com" 
+                        <input type="email" id="email" placeholder="example@example.com" 
                             {...register("email")} 
                             className="mt-1 block w-full px-3 py-2 bord\er border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                         {/* Exibe o erro do Zod em vermelho caso exista */}
                         {errors.email && <span className="text-red-500 text-xs mt-1 block">{errors.email.message}</span>}
+                        {String(emailVal).includes('example@example.com') && (
+                            <div>
+                                <span className="text-yellow-500 text-xs mt-1 block">Pelo amor de Deus, não inventa esse email não!!</span>
+                            </div>
+                        )}
                     </div>
                     <div>
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">Senha</label>
