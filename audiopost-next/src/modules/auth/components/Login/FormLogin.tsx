@@ -20,7 +20,7 @@ export default function FormLogin({ form, onSubmit }: FormLoginProps): React.Rea
         <section className="col-span-6 px-20 flex flex-col items-start justify-center min-h-screen bg-white">
             <div className="mb-5 text-center">
                 <i className="fas fa-headphones"></i>
-                <h1 className="text-lg font-bold text-purple-600">AudioPost</h1>
+                <a className="text-lg font-bold text-purple-600" href="/">AudioPost</a>
             </div>
             <div className="w-full max-w-md py-6 bg-white rounded-lg">
                 <h2 className="text-2xl font-bold text-start text-purple-600 mb-6">Entrar na sua conta</h2>
