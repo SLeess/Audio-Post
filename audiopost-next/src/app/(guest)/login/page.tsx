@@ -7,18 +7,14 @@ import FormLogin from "@/modules/auth/components/Login/FormLogin";
 
 export default function LoginPage()
 {
-    const { 
-        formData,
-        handleInputChange,
-        handleSubmit 
-    } = useLogin();
+    const { form, onSubmit, isLoading } = useLogin();
 
     return (<>
         <div className="grid grid-cols-12 min-h-screen w-full">
             <FormLogin 
-                formData={formData}
-                handleSubmit={handleSubmit}
-                handleInputChange={handleInputChange}
+                form={form}
+                onSubmit={onSubmit}
+                isLoading={isLoading}
             />
             <BannerImage />
         </div>

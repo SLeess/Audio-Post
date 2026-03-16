@@ -1,42 +1,32 @@
 import { useState } from "react";
 import { login } from "@/modules/auth/services/authService";
 import { toast } from "sonner";
+import { loginSchema, LoginData } from "@/modules/auth/validations/loginSchema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function useLogin() {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    });
     const [isLoading, setIsLoading] = useState(false);
-    const [errors, setErrors] = useState<Record<string, string> | null>(null);
+    
+    const form = useForm<LoginData>({
+        resolver: zodResolver(loginSchema),
+    });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
-
-    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const onSubmit = async (data: LoginData) => {
         setIsLoading(true);
-        setErrors(null);
 
         try {
-            await login(formData.email, formData.password);
+            await login(data.email, data.password);
             toast.success("Login realizado com sucesso!");
 
             // Redirecionar para a página inicial ou dashboard
         } catch (error: any) {
             console.error("Erro ao fazer login:", error);
             toast.error(error.message || "Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.");
-
-            setErrors(errors);
         } finally {
             setIsLoading(false);
         }
     }
 
-    return { formData, handleInputChange, handleSubmit, errors, isLoading };
+    return { form, onSubmit, isLoading };
 }
