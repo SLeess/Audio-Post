@@ -5,12 +5,11 @@ import { LoginData } from "@/modules/auth/validations/loginSchema";
 interface FormLoginProps{
     form: UseFormReturn<LoginData>;
     onSubmit: (data: LoginData) => Promise<void>;
-    isLoading: boolean;
 }
 
-export default function FormLogin({ form, onSubmit, isLoading }: FormLoginProps): React.ReactNode
+export default function FormLogin({ form, onSubmit }: FormLoginProps): React.ReactNode
 {
-    const { register, handleSubmit, formState: { errors } } = form;
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = form;
 
     return (
         <section className="col-span-6 px-20 flex flex-col items-start justify-center min-h-screen bg-white">
@@ -44,10 +43,10 @@ export default function FormLogin({ form, onSubmit, isLoading }: FormLoginProps)
                     </div>
                     <button 
                         type="submit" 
-                        disabled={isLoading}
+                        disabled={isSubmitting}
                         className="w-full py-2 px-4 bg-gradient-to-r from-indigo-600 to-purple-700 text-white rounded-lg hover:from-purple-700 hover:to-indigo-800 disabled:opacity-50 transition-colors"
                     >
-                        {isLoading ? "Entrando..." : "Entrar"}
+                        {isSubmitting ? "Entrando..." : "Entrar"}
                     </button>
                 </form>
                 <p className="mt-4 text-center text-sm text-gray-600">
