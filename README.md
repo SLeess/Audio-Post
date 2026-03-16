@@ -39,7 +39,7 @@ cd audiopost-api
 
 2. Copie o arquivo de ambiente e configure suas credenciais de banco de dados:
 ```bash
-   cp .env.example .env
+cp .env.example .env
 ```
 
 3. Suba os containers do Laravel (App, MySQL, etc) em segundo plano:
