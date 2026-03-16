@@ -1,70 +1,48 @@
-"use client"; // Isso diz ao Next.js que esse componente roda no navegador (necessário para formulários)
-
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-
-// 1. O "Contrato" do Zod: Aqui você define as regras de validação do front-end
-const podcastSchema = z.object({
-  title: z.string().min(5, "O título precisa ter pelo menos 5 letras."),
-  content: z.string().min(50, "O texto é muito curto para um podcast! Mínimo de 50 caracteres."),
-});
-
-// 2. TypeScript Mágico: Ele extrai a tipagem direto do Zod, você não precisa escrever duas vezes!
-type PodcastForm = z.infer<typeof podcastSchema>;
+"use client";
 
 export default function Home() {
-  // 3. Conectando o React Hook Form com o Zod
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<PodcastForm>({
-    resolver: zodResolver(podcastSchema),
-  });
-
-  // 4. Função que só executa se passar em todas as validações do Zod
-  const onSubmit = (data: PodcastForm) => {
-    console.log("Passou na validação! Dados prontos pro Laravel:", data);
-    // No futuro, é aqui que faremos o fetch() para enviar pro backend
-  };
-
   return (
-    <main className="p-10 max-w-2xl mx-auto bg-gray-50 min-h-screen text-gray-900">
-      <h1 className="text-3xl font-bold mb-6 text-indigo-600">Criar novo AudioPost</h1>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 bg-white p-6 rounded shadow">
-        
-        {/* Campo de Título */}
+    
+    <main className="p-5 pt-0 w-full mx-auto min-h-screen bg-[var(--background)] text-gray-50 flex flex-col">
+      
+      <nav className="flex justify-between border-b border-gray-700 bg-[var(--nav-bar)] mx-auto py-5 px-10 w-full max-w-4xl rounded-lg mb-10">
         <div>
-          <label className="block mb-1 font-semibold">Título do Podcast</label>
-          <input
-            {...register("title")} // O register "conecta" o input ao Hook Form
-            className="w-full border p-2 rounded outline-none focus:ring-2 focus:ring-indigo-500"
-            placeholder="Ex: Resumo sobre Clean Code"
-          />
-          {/* Mostra o erro do Zod, se existir */}
-          {errors.title && <span className="text-red-500 text-sm mt-1 block">{errors.title.message}</span>}
+          <a href="#" className="text-lg font-bold text-indigo-400">AudioPost</a>
         </div>
+        <ul className="flex gap-8 justify-center">
+          <li>
+            <a href="#" className="hover:text-indigo-400 font-semibold transition-colors">Início</a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-indigo-400 font-semibold transition-colors">Podcasts</a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-indigo-400 font-semibold transition-colors">Preços</a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-indigo-400 font-semibold transition-colors">Sobre</a>
+          </li>
+        </ul>
+        <ul className="flex gap-4">
+          <li>
+            <a href="/login" className="text-sm hover:text-indigo-400 font-semibold transition-colors">Entrar</a>
+          </li>
+          <li>
+            <a href="/register" className="text-sm hover:text-indigo-400 font-semibold transition-colors">Registrar</a>
+          </li>
+        </ul>
+      </nav>
 
-        {/* Campo de Texto */}
-        <div>
-          <label className="block mb-1 font-semibold">Texto para converter em Áudio</label>
-          <textarea
-            {...register("content")}
-            className="w-full border p-2 rounded h-40 outline-none focus:ring-2 focus:ring-indigo-500"
-            placeholder="Cole aqui o texto longo que a IA vai ler..."
-          />
-          {errors.content && <span className="text-red-500 text-sm mt-1 block">{errors.content.message}</span>}
+      <div className="w-full text-center flex flex-col items-center justify-start py-10 flex-1">
+        <h1 className="text-4xl font-bold text-white mb-4">Crie seus registros de áudio</h1>
+        <h2 className="text-4xl font-bold text-white mb-4">Com o <span className="text-indigo-400">AudioPost</span></h2>
+        <p className="text-lg text-gray-300">Transforme suas ideias em áudio de qualidade com o AudioPost.</p>
+        <div className="mt-6 flex gap-4">
+          <a href="#" className="px-6 py-2 bg-gradient-to-r from-black-600 to-purple-700 border-[1px] border-gray-700 text-white rounded-lg hover:bg-gradient-to-r hover:from-purple-700 hover:to-black-600 transition-colors">Comece Agora</a>
+          <a href="#" className="px-6 py-2 border-[1px] border-gray-700 text-gray-300 rounded-lg hover:border-gray-300 hover:text-gray-300 transition-colors">Saiba Mais</a>
         </div>
-
-        <button 
-          type="submit" 
-          className="bg-indigo-600 text-white font-bold p-3 rounded hover:bg-indigo-700 transition-colors mt-2"
-        >
-          Gerar Podcast com IA
-        </button>
-      </form>
+      </div>
+      
     </main>
   );
 }
