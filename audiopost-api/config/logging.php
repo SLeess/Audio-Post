@@ -4,6 +4,7 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
+use Monolog\Formatter\JsonFormatter;
 
 return [
 
@@ -126,6 +127,22 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        // -------------------------------------------------------------
+        // CANAIS PERSONALIZADOS (ex.: rh, crm, etc.) + JSON
+        // -------------------------------------------------------------
+        
+        'administrator' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/administrator.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+            'formatter' => JsonFormatter::class,
+            'processors' => [
+                \App\Logging\CustomProcessor::class,
+            ],
+        ],
+
 
     ],
 
