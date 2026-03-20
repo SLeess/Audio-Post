@@ -10,12 +10,10 @@ export default function LoginPage()
     const { form, onSubmit } = useLogin();
 
     return (<>
-        <div className="grid grid-cols-12 min-h-screen w-full">
-            <FormLogin 
-                form={form}
-                onSubmit={onSubmit}
-            />
-            <BannerImage />
-        </div>
+        <FormLogin 
+            form={form}
+            onSubmit={onSubmit}
+        />
+        <BannerImage />
     </>);
 }

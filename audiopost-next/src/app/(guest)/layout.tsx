@@ -9,7 +9,9 @@ export default function AuthLayout({ children }: any) {
           <p className="text-sm text-gray-500">Acesse sua conta para continuar</p>
         </div> */}
         {/* O 'children' é onde as páginas de login/registro vão ser injetadas */}
-        {children} 
+        <div className="grid grid-cols-12 min-h-screen w-full">  
+          {children} 
+        </div>
       </div>
       <div className="grid grid-cols-2">
         <footer className="fixed col-span-1 bottom-0 w-full bg-gray-100 text-center py-4">
