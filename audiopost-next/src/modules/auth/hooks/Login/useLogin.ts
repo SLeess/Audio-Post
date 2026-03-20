@@ -1,4 +1,4 @@
-import { login } from "@/modules/auth/services/authService";
+import { useAuthService } from "@/modules/auth/services/authService";
 import { toast } from "sonner";
 import { loginSchema, LoginData } from "@/modules/auth/validations/loginSchema";
 import { useForm } from "react-hook-form";
@@ -9,6 +9,8 @@ import { useAuth } from "@/contexts/AuthContext";
 export default function useLogin() {
     const { showLoading, hideLoading } = useLoading();
     const { login: contextLogin } = useAuth();
+    
+    const { login } = useAuthService();
 
     const form = useForm<LoginData>({
         resolver: zodResolver(loginSchema),

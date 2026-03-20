@@ -1,16 +1,18 @@
 import { useForm } from "react-hook-form";
 import { RegisterData, registerSchema } from "../../validations/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { register } from "../../services/authService";
+// import { register } from "../../services/authService";
 import { toast } from "sonner";
 import { useLoading } from "@/contexts/LoadingContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { log } from "console";
+import { useAuthService } from "../../services/authService";
 
 export default function useRegister()
 {
     const { login } = useAuth();
     const { showLoading, hideLoading } = useLoading();
+    const { register: registerService } = useAuthService();
 
     const form = useForm<RegisterData>({
         resolver: zodResolver(registerSchema)
@@ -19,7 +21,7 @@ export default function useRegister()
     const onSubmit = async (data: RegisterData) => {
         showLoading();
         try {
-            const result = await register(data);
+            const result = await registerService(data);
             
             if(result.data.token && result.data.user) {
                 login(result.data.token, result.data.user);
